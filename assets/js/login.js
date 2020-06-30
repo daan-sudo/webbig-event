@@ -37,13 +37,20 @@ $(function () {
             username: $('#form_reg [name=username]').val(),
             password: $('#form_reg [name=password]').val()
         }
-        $.post('http://127.0.0.1:3007/api/reguser', data, function (res) {
-            if (res.status !== 0) {
-                return layer.msg(res.message)
+
+        $.ajax({
+            url: '/api/reguser',
+            method: 'post',
+            data,
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg(res.message)
+                }
+                layer.msg('注册成功，请登录！')
+                // 模拟人的点击行为
+                $('#link_login').click()
             }
-            layer.msg('注册成功，请登录！')
-            // 模拟人的点击行为
-            $('#link_login').click()
+
         })
     })
     // 监听登录表单的提交事件
